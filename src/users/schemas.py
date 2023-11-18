@@ -10,12 +10,12 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    pass
+    password: str
 
 
 class UserRead(UserBase):
     created_datetime: datetime
-    updated_datetime: datetime
+    updated_datetime: datetime | None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
