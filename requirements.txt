@@ -1,0 +1,12 @@
+fastapi
+sqlalchemy
+pydantic
+uvicorn
+alembic
+asyncpg
+bcrypt
+python-dotenv
+psycopg2
+PyJWT
+passlib
+dependency-injector
