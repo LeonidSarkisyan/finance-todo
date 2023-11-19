@@ -2,6 +2,7 @@ fastapi
 sqlalchemy
 pydantic
 uvicorn
+gunicorn
 alembic
 asyncpg
 bcrypt
