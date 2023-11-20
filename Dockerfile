@@ -9,6 +9,7 @@ COPY ./migrations /app
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-RUN alembic upgrade head
+COPY entrypoint.sh ./
+ENTRYPOINT ["./entrypoint.sh"]
 
 CMD gunicorn main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
