@@ -3,7 +3,6 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
-from src.logger import logger
 from src.depends import get_current_user
 from src.users.schemas import UserCreate, UserRead, UserLogin, Token, UserUpdate
 from src.users.service import user_service
