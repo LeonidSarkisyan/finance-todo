@@ -8,10 +8,10 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY migrations .
-COPY alembic.ini .
-COPY docker .
-COPY src .
+COPY migrations /fastapi_app
+COPY alembic.ini /fastapi_app
+COPY docker /fastapi_app
+COPY src /fastapi_app
 
 RUN chmod a+x docker/*.sh
 
