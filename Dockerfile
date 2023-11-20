@@ -12,6 +12,4 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 COPY entrypoint.sh ./
 ENTRYPOINT ["./entrypoint.sh"]
 
-WORKDIR src
-
-CMD gunicorn main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "80"]
