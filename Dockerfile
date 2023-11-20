@@ -5,7 +5,6 @@ WORKDIR /app
 COPY ./src /app
 COPY ./requirements.txt /app
 COPY ./alembic.ini /app
-COPY ./app.log /app
 COPY ./migrations /app
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
