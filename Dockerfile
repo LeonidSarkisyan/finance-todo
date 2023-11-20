@@ -10,6 +10,8 @@ RUN pip install -r requirements.txt
 
 COPY migrations .
 COPY alembic.ini .
+COPY docker .
+COPY src .
 
 RUN chmod a+x docker/*.sh
 
