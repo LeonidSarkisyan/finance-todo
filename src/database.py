@@ -8,13 +8,11 @@ from src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 
 DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-print('-' * 100)
-print(DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
-print('-' * 100)
+DATABASE_URL_ = f"postgresql+asyncpg://finance_todo_user:FtiTu1DgATmJs4IP2UDcqsGWEd8uQLKp@dpg-clcutufgsrdc73fhkna0-a:5432/finance_todo"
 
 Base = declarative_base()
 
-engine = create_async_engine(DATABASE_URL)
+engine = create_async_engine(DATABASE_URL_)
 async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
