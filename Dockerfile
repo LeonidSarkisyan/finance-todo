@@ -8,13 +8,8 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY migrations /fastapi_app
-COPY alembic.ini /fastapi_app
-COPY docker /fastapi_app
-COPY src /fastapi_app
+COPY . .
 
-RUN chmod a+x docker/*.sh
+WORKDIR /src
 
-RUN alembic upgrade head
-
-CMD gunicorn src.main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+CMD gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
