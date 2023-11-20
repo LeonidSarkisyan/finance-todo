@@ -9,7 +9,7 @@ COPY ./migrations /app
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-COPY entrypoint.sh ./
+COPY entrypoint.sh /app
 ENTRYPOINT ["./entrypoint.sh"]
 
-CMD gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+CMD gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
