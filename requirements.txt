@@ -13,3 +13,4 @@ passlib
 dependency-injector
 loguru
 pydantic[email]
+python-multipart
