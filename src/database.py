@@ -8,7 +8,7 @@ from sqlalchemy import URL
 from src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 
 connection_string = URL.create(
-  'postgresql',
+  'postgresql+asyncpg',
   username='LeonidSarkisyan',
   password='yr8jq5VEsZPl',
   host='ep-sparkling-tooth-34814142.eu-central-1.aws.neon.tech',
