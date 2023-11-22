@@ -11,8 +11,13 @@ from src.users.service import user_service
 router = APIRouter(tags=['User'], prefix='/users')
 
 
+class OAuth2PasswordRequestFormPhone(OAuth2PasswordRequestForm):
+    username: str = None
+    phone: str
+
+
 @router.post('/login')
-async def login(user_login: UserLogin) -> Token:
+async def login(user_login: Annotated[OAuth2PasswordRequestFormPhone, Depends()]) -> Token:
     token = await user_service.login(user_login)
     return token
 
