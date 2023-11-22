@@ -12,7 +12,7 @@ connection_string = URL.create(
   username='LeonidSarkisyan',
   password='aUqdbEP1TeR0',
   host='ep-tiny-poetry-24411871-pooler.eu-central-1.aws.neon.tech',
-  database='FinanceTodoDB',
+  database='frilance-todo',
   query={"async_fallback": "True"}
 )
 
