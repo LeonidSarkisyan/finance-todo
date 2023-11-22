@@ -14,7 +14,6 @@ router = APIRouter(tags=['User'], prefix='/users')
 @router.post('/login')
 async def login(user_login: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:
     token = await user_service.login(user_login)
-    logger.info(f"Пользователь {user_login.username} зашёл в систему")
     return token
 
 
@@ -26,7 +25,6 @@ async def get_me(current_user: Annotated[UserRead, Depends(get_current_user)]) -
 @router.post('/')
 async def create_user(user: UserCreate) -> UserRead:
     result = await user_service.create_user(user)
-    logger.info(f"Был создан новый пользователь {user.username}")
     return result
 
 
