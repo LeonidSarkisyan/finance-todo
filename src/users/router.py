@@ -47,5 +47,4 @@ async def update_user(
     current_user: Annotated[UserRead, Depends(get_current_user)]
 ) -> UserRead:
     updated_user = await user_service.update_user(user_update, current_user.id)
-    logger.info(f"Пользователь {current_user.username} изменил профиль!")
     return updated_user
