@@ -8,12 +8,11 @@ from sqlalchemy import URL
 from src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 
 connection_string = URL.create(
-  'postgresql+asyncpg',
+  'postgresql',
   username='LeonidSarkisyan',
   password='yr8jq5VEsZPl',
   host='ep-sparkling-tooth-34814142.eu-central-1.aws.neon.tech',
-  database='FrilanceTodoDB',
-  query={"async_fallback": "True"}
+  database='FrilanceTodoDB'
 )
 
 DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
