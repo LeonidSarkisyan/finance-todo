@@ -4,7 +4,7 @@ from pydantic import BaseModel, EmailStr
 
 
 class UserLogin(BaseModel):
-    username: str
+    phone: str
     password: str
 
 

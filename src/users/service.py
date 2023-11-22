@@ -14,7 +14,7 @@ class UserService:
         self.repository = repository
 
     async def login(self, login: UserLogin) -> dict[str, str]:
-        user = await self.repository.get_by_field("username", login.username)
+        user = await self.repository.get_by_field("phone", login.phone)
         if not user:
             raise BadLoginOrPassword
         if not self.hash.verify(user.password, login.password):
