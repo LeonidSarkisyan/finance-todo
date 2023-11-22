@@ -10,9 +10,9 @@ from src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 connection_string = URL.create(
   'postgresql+asyncpg',
   username='LeonidSarkisyan',
-  password='aUqdbEP1TeR0',
-  host='ep-tiny-poetry-24411871-pooler.eu-central-1.aws.neon.tech',
-  database='frilance-todo',
+  password='yr8jq5VEsZPl',
+  host='ep-sparkling-tooth-34814142.eu-central-1.aws.neon.tech',
+  database='FrilanceTodoDB',
   query={"async_fallback": "True"}
 )
 
