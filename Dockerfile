@@ -12,8 +12,6 @@ COPY . .
 
 WORKDIR src
 
-RUN alembic upgrade head
-
 WORKDIR /fastapi_app
 
 CMD gunicorn src.main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
