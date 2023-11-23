@@ -30,13 +30,13 @@ async def create_user(user: UserCreate) -> UserRead:
 
 
 @router.get('/')
-async def get_list_users() -> list[UserRead]:
+async def get_list_users(current_user: Annotated[UserRead, Depends(get_current_user)]) -> list[UserRead]:
     users = await user_service.get_list_users()
     return users
 
 
 @router.get('/{user_id}')
-async def get_user(user_id: int) -> UserRead:
+async def get_user(user_id: int, current_user: Annotated[UserRead, Depends(get_current_user)]) -> UserRead:
     user = await user_service.get_user(user_id)
     return user
 
