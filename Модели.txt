@@ -10,12 +10,14 @@ Balance:
 title
 type
 value
+currency
 сreated_date_time
 updated_date_time
 user_id
 
 Category:
 name
+user_id
 
 Transaction:
 name

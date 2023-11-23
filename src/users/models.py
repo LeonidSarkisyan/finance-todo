@@ -11,8 +11,8 @@ class User(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     phone: Mapped[str] = mapped_column(nullable=False, unique=True)
-    username: Mapped[str] = mapped_column()
-    email: Mapped[str] = mapped_column()
+    username: Mapped[str] = mapped_column(nullable=True)
+    email: Mapped[str] = mapped_column(nullable=True)
     password: Mapped[str] = mapped_column(nullable=False)
     created_datetime: Mapped[datetime] = mapped_column(server_default=func.now())
     updated_datetime: Mapped[datetime] = mapped_column(onupdate=func.now(), nullable=True)
