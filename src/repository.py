@@ -9,6 +9,10 @@ from src.exceptions import NotFound
 
 class RepositoryInterface(ABC):
     @abstractmethod
+    def __init__(self, model):
+        self.model = model
+
+    @abstractmethod
     async def create(self, data: dict):
         raise NotImplemented
 
@@ -21,11 +25,15 @@ class RepositoryInterface(ABC):
         raise NotImplemented
 
     @abstractmethod
-    async def update(self, data: dict, entity_id: int):
+    async def update(self, data: dict, entity_id: int, *filters):
         raise NotImplemented
 
     @abstractmethod
     async def get_list(self, *filters):
+        raise NotImplemented
+
+    @abstractmethod
+    async def delete(self, entity_id: int, *filters):
         raise NotImplemented
 
 
@@ -68,13 +76,24 @@ class SQLAlchemyRepository(RepositoryInterface):
             entity = result.scalar()
             return entity
 
-    async def update(self, data: dict, entity_id: int):
+    async def update(self, data: dict, entity_id: int, *filters):
         async with async_session_maker() as session:
             stmt = (
                 update(self.model)
                 .returning(self.model)
+                .filter(*filters, self.model.id == entity_id)
                 .values(**data)
-                .where(self.model.id == entity_id)
+            )
+            result = await session.execute(stmt)
+            await session.commit()
+            return result.scalar()
+
+    async def delete(self, entity_id: int, *filters):
+        async with async_session_maker() as session:
+            stmt = (
+                delete(self.model)
+                .returning(self.model)
+                .filter(*filters, self.model.id == entity_id)
             )
             result = await session.execute(stmt)
             await session.commit()

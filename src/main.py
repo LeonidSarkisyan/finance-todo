@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.users.router import router as user_router
+from src.balances.router import router as balance_router
 
 
 app = FastAPI(title="FinanceTodo")
@@ -16,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-routers = [user_router]
+routers = [user_router, balance_router]
 
 for router in routers:
     app.include_router(router)

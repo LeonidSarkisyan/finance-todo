@@ -8,3 +8,4 @@ class HTTPExceptionBase(HTTPException):
 
 
 NotFound = HTTPExceptionBase(404, "Не найдено")
+Forbidden = HTTPExceptionBase(403, "Доступ к ресурсу запрещён")
