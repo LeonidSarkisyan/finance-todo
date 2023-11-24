@@ -14,5 +14,8 @@ class BalanceCreate(BalanceBase):
     pass
 
 
-class BalanceUpdate(BalanceBase):
-    pass
+class BalanceUpdate(BaseModel):
+    title: str | None = None
+    type: str | None = None
+    value: float | None = None
+    currency: str | None = None

@@ -27,8 +27,9 @@ class BalanceService:
         return balance
 
     async def update_balance(self, balance_id: int, balance: BalanceUpdate, user: UserRead):
+        data = {key: value for key, value in balance.model_dump().items() if value is not None}
         updated_balance = await self.repository.update(
-            balance.model_dump(), balance_id, self.repository.model.user_id == user.id
+            data, balance_id, self.repository.model.user_id == user.id
         )
         if not updated_balance:
             raise Forbidden
