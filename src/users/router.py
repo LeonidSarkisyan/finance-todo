@@ -11,16 +11,10 @@ from src.users.service import user_service
 router = APIRouter(tags=['User'], prefix='/users')
 
 
-@router.post('/login_test')
+@router.post('/login')
 async def login_test(user_login: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:
     user_login_with_phone = UserLogin(phone=user_login.username, password=user_login.password)
     token = await user_service.login(user_login_with_phone)
-    return token
-
-
-@router.post('/login')
-async def login(user_login: UserLogin) -> Token:
-    token = await user_service.login(user_login)
     return token
 
 
