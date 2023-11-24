@@ -1,6 +1,7 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
+from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 
 from src.depends import get_current_user
 from src.users.schemas import UserCreate, UserRead, UserLogin, Token, UserUpdate
@@ -8,6 +9,13 @@ from src.users.service import user_service
 
 
 router = APIRouter(tags=['User'], prefix='/users')
+
+
+@router.post('/login_test')
+async def login_test(user_login: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:
+    user_login_with_phone = UserLogin(phone=user_login.username, password=user_login.password)
+    token = await user_service.login(user_login_with_phone)
+    return token
 
 
 @router.post('/login')
