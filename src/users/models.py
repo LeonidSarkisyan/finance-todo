@@ -5,6 +5,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database import Base
 from src.balances.models import Balance
+from src.category.models import Category
 
 
 class User(Base):
@@ -19,3 +20,4 @@ class User(Base):
     updated_datetime: Mapped[datetime] = mapped_column(onupdate=func.now(), nullable=True)
 
     balances: Mapped[list[Balance]] = relationship(back_populates="user")
+    categories: Mapped[list[Category]] = relationship(back_populates="user")
