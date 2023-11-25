@@ -9,13 +9,11 @@ from src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 
 connection_string = URL.create(
   'postgresql+asyncpg',
-  username='LeonidSarkisyan',
-  password='yr8jq5VEsZPl',
-  host='ep-sparkling-tooth-34814142.eu-central-1.aws.neon.tech',
-  database='FrilanceTodoDB'
+  username=DB_USER,
+  password=DB_PASS,
+  host=DB_HOST,
+  database=DB_NAME
 )
-
-DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 Base = declarative_base()
 
