@@ -3,7 +3,7 @@ import os
 
 load_dotenv()
 
-DEBUG = True
+DEBUG = False
 
 DB_HOST = os.environ.get("DB_HOST_TEST") if DEBUG else os.environ.get("DB_HOST")
 DB_PORT = os.environ.get("DB_PORT_TEST") if DEBUG else os.environ.get("DB_PORT")
