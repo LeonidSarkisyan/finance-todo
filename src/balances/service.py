@@ -1,4 +1,4 @@
-from src.exceptions import Forbidden
+from src.exceptions import Forbidden, NotFound
 from src.repository import RepositoryInterface
 from src.users.schemas import UserRead
 from src.balances.schemas import BalanceCreate, BalanceUpdate
@@ -22,8 +22,10 @@ class BalanceService:
 
     async def get_balance(self, balance_id: int, user: UserRead):
         balance = await self.repository.get_by_id(balance_id)
+        if not balance:
+            raise NotFound.get_http_exception()
         if balance.user_id != user.id:
-            raise Forbidden
+            raise Forbidden.get_http_exception()
         return balance
 
     async def update_balance(self, balance_id: int, balance: BalanceUpdate, user: UserRead):
@@ -32,7 +34,7 @@ class BalanceService:
             data, balance_id, self.repository.model.user_id == user.id
         )
         if not updated_balance:
-            raise Forbidden
+            raise Forbidden.get_http_exception()
         return updated_balance
 
     async def delete_balance(self, balance_id: int, user: UserRead):
@@ -40,7 +42,7 @@ class BalanceService:
             balance_id, self.repository.model.id == balance_id, self.repository.model.user_id == user.id
         )
         if not deleted_balance:
-            raise Forbidden
+            raise Forbidden.get_http_exception()
         return deleted_balance
 
 

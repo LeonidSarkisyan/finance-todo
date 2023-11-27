@@ -4,6 +4,7 @@ from sqlalchemy import func, DateTime, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database import Base
+from src.transaction.models import Transaction
 
 
 class Balance(Base):
@@ -18,4 +19,5 @@ class Balance(Base):
     updated_date_time: Mapped[datetime] = mapped_column(DateTime, onupdate=func.now(), nullable=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
 
+    transactions: Mapped[list[Transaction]] = relationship(back_populates="balance")
     user: Mapped["User"] = relationship(back_populates="balances")

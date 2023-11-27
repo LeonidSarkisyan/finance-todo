@@ -1,10 +1,14 @@
 from abc import ABC, abstractmethod
+from typing import TypeVar
 
 from sqlalchemy import insert, select, delete, update
 from sqlalchemy.exc import IntegrityError
 
 from src.database import async_session_maker, Base
 from src.exceptions import NotFound
+
+
+T = TypeVar('T')
 
 
 class RepositoryInterface(ABC):
@@ -36,6 +40,10 @@ class RepositoryInterface(ABC):
     async def delete(self, entity_id: int, *filters):
         raise NotImplemented
 
+    @abstractmethod
+    async def bulk_insert(self, data: list):
+        raise NotImplemented
+
 
 class SQLAlchemyRepository(RepositoryInterface):
 
@@ -47,7 +55,8 @@ class SQLAlchemyRepository(RepositoryInterface):
             stmt = insert(self.model).returning(self.model).values(**data)
             try:
                 result = await session.execute(stmt)
-            except IntegrityError:
+            except IntegrityError as e:
+                print(e)
                 raise IntegrityException
             else:
                 await session.commit()
@@ -64,8 +73,6 @@ class SQLAlchemyRepository(RepositoryInterface):
             query = select(self.model).where(self.model.id == entity_id)
             result = await session.execute(query)
             entity = result.scalar()
-            if not entity:
-                raise NotFound
             return entity
 
     async def get_by_field(self, field_name: str, value):
@@ -98,6 +105,16 @@ class SQLAlchemyRepository(RepositoryInterface):
             result = await session.execute(stmt)
             await session.commit()
             return result.scalar()
+
+    async def bulk_insert(self, data: list, returning=None):
+        async with async_session_maker() as session:
+            try:
+                result = await session.execute(insert(self.model).returning(self.model.id), data)
+            except IntegrityError:
+                raise IntegrityException
+            else:
+                await session.commit()
+                return result.scalars().all()
 
 
 class IntegrityException(Exception):

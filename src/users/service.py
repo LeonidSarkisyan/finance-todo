@@ -16,9 +16,9 @@ class UserService:
     async def login(self, login: UserLogin) -> dict[str, str]:
         user = await self.repository.get_by_field("phone", login.phone)
         if not user:
-            raise BadLoginOrPassword
+            raise BadLoginOrPassword.get_http_exception()
         if not self.hash.verify(user.password, login.password):
-            raise BadLoginOrPassword
+            raise BadLoginOrPassword.get_http_exception()
         data_for_token = {"user_id": user.id}
         access_token = create_jwt_token(data_for_token)
         return {"access_token": access_token, "token_type": "bearer"}
@@ -29,7 +29,7 @@ class UserService:
         try:
             user = await self.repository.create(data)
         except IntegrityException:
-            raise UserExist
+            raise UserExist.get_http_exception()
         return user
 
     async def get_list_users(self, *filters):

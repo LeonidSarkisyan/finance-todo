@@ -15,6 +15,7 @@ import socket
 from src.users.models import *
 from src.balances.models import *
 from src.category.models import *
+from src.transaction.models import *
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
