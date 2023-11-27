@@ -6,7 +6,7 @@ class TransactionBase(BaseModel):
     description: str | None = None
     value: float
     balance_id: int
-    category_id: int
+    sub_category_id: int
 
 
 class TransactionCreate(TransactionBase):
@@ -16,4 +16,4 @@ class TransactionCreate(TransactionBase):
 class TransactionUpdate(BaseModel):
     title: str | None = None
     description: str | None = None
-    value: str | None = None
+    value: float | None = None
