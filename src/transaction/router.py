@@ -19,8 +19,15 @@ async def create_transaction(
     return await transaction_service.create_transaction(transaction, current_user)
 
 
+@router.get("/all")
+async def get_all_transactions(
+    current_user: Annotated[UserRead, Depends(get_current_user)]
+):
+    return await transaction_service.get_all_transactions(current_user)
+
+
 @router.get("/")
-async def get_my_transactions(
+async def get_my_transactions_by_balance(
     balance_id: int,
     current_user: Annotated[UserRead, Depends(get_current_user)]
 ):

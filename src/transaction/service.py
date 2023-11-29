@@ -31,6 +31,10 @@ class TransactionService:
 
         return new_transaction
 
+    async def get_all_transactions(self, user: UserRead):
+        transactions = await self.repository.get_list(self.repository.model.user_id == user.id)
+        return transactions
+
     async def get_transaction(self, transaction_id: int, user: UserRead):
         transaction_updated = await self.repository.get_by_id(transaction_id)
         if not transaction_updated:
